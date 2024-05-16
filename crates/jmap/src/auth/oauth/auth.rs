@@ -36,7 +36,6 @@ impl JMAP {
                 .map_err(|err| {
                     trc::EventType::Resource(trc::ResourceEvent::BadParameters).from_json_error(err)
                 })?;
-
         let response = match request {
             OAuthCodeRequest::Code {
                 client_id,
@@ -49,7 +48,7 @@ impl JMAP {
                         .details("Client ID is invalid."));
                 } else if redirect_uri
                     .as_ref()
-                    .map_or(false, |uri| !uri.starts_with("https://"))
+                    .map_or(false, |uri| !uri.starts_with("https://") && !uri.starts_with("http://localhost"))
                 {
                     return Err(trc::ManageEvent::Error
                         .into_err()
