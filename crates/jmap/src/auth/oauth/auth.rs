@@ -67,7 +67,7 @@ impl JMAP {
                             .into_http_response();
                         } else if redirect_uri
                             .as_ref()
-                            .map_or(false, |uri| !uri.starts_with("https://"))
+                            .map_or(false, |uri| !uri.starts_with("https://") && !uri.starts_with("http://localhost"))
                         {
                             return ManagementApiError::Other {
                                 details: "Redirect URI must be HTTPS.".into(),
