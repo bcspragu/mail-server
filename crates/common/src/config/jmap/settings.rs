@@ -221,7 +221,7 @@ impl JmapConfig {
             http_headers.push((
                 hyper::header::ACCESS_CONTROL_ALLOW_HEADERS,
                 hyper::header::HeaderValue::from_static(
-                    "Authorization, Content-Type, Accept, X-Requested-With",
+                    "Authorization, Content-Type, Accept, X-Requested-With, Cache-Control",
                 ),
             ));
             http_headers.push((
