@@ -19,12 +19,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -yq build-essential libclang-16-dev \
     g++-aarch64-linux-gnu binutils-aarch64-linux-gnu \
-    g++-x86-64-linux-gnu binutils-x86-64-linux-gnu
+    g++-x86-64-linux-gnu binutils-x86-64-linux-gnu \
+    protobuf-compiler wget curl build-essential libssl-dev pkg-config
 RUN rustup target add "$(cat /target.txt)"
 COPY --from=planner /recipe.json /recipe.json
 RUN RUSTFLAGS="$(cat /flags.txt)" cargo chef cook --target "$(cat /target.txt)" --release --recipe-path /recipe.json
 COPY . .
-RUN RUSTFLAGS="$(cat /flags.txt)" cargo build --target "$(cat /target.txt)" --release -p mail-server -p stalwart-cli
+RUN RUSTFLAGS="$(cat /flags.txt)" cargo build --target "$(cat /target.txt)" --release -p mail-server -p stalwart-cli --no-default-features --features "postgres s3"
 RUN mv "/build/target/$(cat /target.txt)/release" "/output"
 
 FROM docker.io/debian:bookworm-slim

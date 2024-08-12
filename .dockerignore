@@ -1,0 +1,9 @@
+/target
+.vscode
+*.failed
+*_failed
+stalwart.toml
+run.sh
+_ignore
+.DS_Store
+Dockerfile
