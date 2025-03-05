@@ -6,3 +6,9 @@
 run.sh
 _ignore
 .DS_Store
+/.stalwart-data
+/.export
+/.import
+/static_serve
+webadmin.zip
+export.tar.gz

@@ -90,10 +90,9 @@ impl OAuthApiHandler for Server {
                     return Err(trc::ManageEvent::Error
                         .into_err()
                         .details("Client ID is invalid."));
-                } else if redirect_uri
-                    .as_ref()
-                    .is_some_and(|uri| uri.starts_with("http://"))
-                {
+                } else if redirect_uri.as_ref().is_some_and(|uri| {
+                    uri.starts_with("http://") && !uri.starts_with("http://localhost:")
+                }) {
                     return Err(trc::ManageEvent::Error
                         .into_err()
                         .details("Redirect URI must be HTTPS."));
